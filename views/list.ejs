@@ -1,0 +1,47 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= title %> </h1>
+  </div>
+
+  <div class="box">
+
+
+    <% if (typeof isLogin !== 'undefined' && isLogin === true) { %>
+      <%  todos.forEach(function(item){ %>
+
+        <form action="/delete" method="post">
+          <div class="item">
+            <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+            <p class="todo-para"><%=item.title%></p>
+          </div>
+          <input type="hidden" name="listName" value="<%= title %>"></input>
+        </form>
+      <%  }) %>
+      <form class="item" action="/" method="post">
+        <input class="input" type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <button class="btn-round" type="submit" name="list" value="<%= title %>">+</button>
+      </form>
+    <% } else { %>
+      <div>
+        <p class="todo-para">Please Sign in to your account to see your todos. <span><a class="login" style="text-decoration: none; color: #0b75ff;" href="/user/login">Sign in</a></span></p>
+      </div>
+      <% } %> 
+  
+
+
+      
+      
+  </div>
+  <% if (typeof isLogin !== 'undefined' && isLogin === true) { %>
+    <div class="logout-box">
+      <a href="/logout" class="logout-btn" >
+    <img src="logout.png" width="25" alt="">  
+    </a>
+    </div>
+   
+  <% } %>
+
+  
+
+<%- include("footer") -%>

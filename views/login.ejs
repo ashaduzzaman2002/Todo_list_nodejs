@@ -1,0 +1,23 @@
+<%- include("header") -%>
+<div class="box" id="heading">
+    <h1> Login </h1>
+  </div>
+<div class="box">
+  <form style="padding: 20px;" action="/user/login" method="post">
+    <div>
+        <input class="form-input" type="email" name="email" placeholder="Email" />
+    </div>
+    <div>
+        <input class="form-input" type="password" name="password" placeholder="Password" />
+    </div>
+    <button class="btn" type="submit">Sign In</button>
+    <% if (typeof error !== 'undefined') { %>
+      <p class="error"><%= error %> </p>
+    <% } %>
+    
+    
+    <p class="link">Don't have an account? <span><a style="text-decoration: none; color: #0b75ff;" href="/user/signup">Sign up</a></span></p>
+  </form>
+</div>
+
+<%- include("footer") -%>
