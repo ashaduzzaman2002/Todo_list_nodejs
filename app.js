@@ -1,10 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+require('dotenv').config();
 
 const app = express();
 
-const port = 5000
+const port = process.env.PORT || 5000
 
 const todoRouter = require('./routes/todoRouter')
 const userRouter = require('./routes/userRouter')
@@ -20,6 +21,6 @@ app.use('/user', userRouter)
 
 
 
-mongoose.connect("mongodb://localhost:27017/todo_nodejs", { useUnifiedTopology: true, useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true});
 
 app.listen(port,() => console.log(`http://localhost:${port}`));

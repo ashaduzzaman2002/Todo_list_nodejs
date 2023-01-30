@@ -2,6 +2,7 @@ const express = require('express');
 const { isLogin } = require('../middleware/isLogin');
 const router = express.Router()
 const Todo = require('../models/Todo')
+const User = require('../models/User');
 
 router.get('/', isLogin, async (req, res) => {
     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -39,16 +40,17 @@ router.post("/delete", isLogin, async (req, res) => {
       })
   });
 
-router.get('/logout', isLogin, async (req, res) => {
-    
-  res.clearCookie('jwt', {
-    httpOnly: true,
-    sameSite: 'None',
-    secure: true,
+  router.get('/logout', isLogin, async (req, res) => {
+    const id = req.user;
+    const user = await User.findById(id);
+    res.clearCookie(`todo_${user.name}`, {
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+    });
+  
+    res.redirect('back');
   });
-
-  res.redirect('back');
-})
   
 
 module.exports = router

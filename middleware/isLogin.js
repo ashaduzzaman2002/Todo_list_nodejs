@@ -15,6 +15,9 @@ exports.isLogin = async (req, res, next) => {
     })
 
     const user = jwt.decode(token)
+    if(!user)  return res.render('list', {
+        title: weekday[day]
+    })
     req.user = user.id
     res.locals.isLogin = true
     next()
